@@ -2,9 +2,39 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<script language="javascript"> 
+    function conn(){
+    	// 1.获取数据库文件路径
+    	var filePath = location.href.substring(0, location.href.indexOf("Dasebase.html"));    //以当前页面文件为基础，找到文件所在的绝对路径  
+  		var path = filePath + "message.accdb";  
+  		path = path.substring(8);       
+
+		// 2.创建数据库连接字符串 
+ 		var lcConnectString="Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq="+ path +";Uid=;Pwd=;"
+		// 3.创建数据库连接对象
+  		var conn = new ActiveXObject("ADODB.Connection"); 
+		// 4.打开数据库
+		conn.Open(lcConnectString);
+
+		// 5.创建一个数据集合映射出数据表，用来临时读取数据库数据
+		var rs = new ActiveXObject("ADODB.Recordset"); 
+		
+		// 6.创建sql语句进行数据表查询、增删查改
+  		var sql="select 姓名 from 表1"; 
+		rs.open(sql,conn);
+		
+		// 7.展示查询结果
+  		alert(rs(0))//取出第一个来
+
+		// 8.关闭数据库
+		conn.close();  
+ 		conn = null; 
+}
+</script>
+		<title>js connects access 2010</title>
 		<script src="链接数据库.js"></script>
 	</head>
 	<body>
+		<button onclick="conn()">onclick</button>
 	</body>
 </html>
